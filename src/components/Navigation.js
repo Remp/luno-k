@@ -11,10 +11,6 @@ import $ from 'jquery';
 export default class Navigation extends Component{
     constructor(){
         super();
-        this.onResizeHandler = () => {
-            if (window.innerWidth >= 576)
-                this.$collapseMenu.css({display: 'flex'})
-        }
         this.toggleHandler = this.toggleHandler.bind(this);
     }
     toggleHandler(){
@@ -25,11 +21,9 @@ export default class Navigation extends Component{
         this.$btnToggler.toggleClass('rotated');
     }
     componentDidMount(){
-        window.addEventListener('resize', this.onResizeHandler, false);
         $('.own-main').on('click', this.toggleHandler);
     }
     componentWillUnmount(){
-        window.removeEventListener('resize', this.onResizeHandler, false);
         $('.own-main').off('click', this.toggleHandler);
     }
     render(){

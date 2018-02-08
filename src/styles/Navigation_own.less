@@ -5,10 +5,13 @@
 
 .own-navbar{
     display: flex;
+    position: fixed;
+    width: 100%;
     background-color: @navbar-bg;
     color: white;
     max-width: 100%;
     justify-content: space-between;
+    z-index: 9999;
     @media (max-width: 768px){
         flex-direction: column;
     }    
