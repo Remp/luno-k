@@ -9,8 +9,7 @@ export default class FilmCard extends Component{
             stars.push(i < rating ? <i className='fas fa-star gold'/> : <i className='far fa-star gold'/>)
         return stars;
     }
-    render(){  
-        
+    render(){        
         return (
             <div className="own-film-card">
                 <div className="own-poster">
@@ -18,7 +17,10 @@ export default class FilmCard extends Component{
                     <img src={this.props.posterImg} alt=""/>
                 </div>
                 <div className="own-desc">
-                    {this._ratingToStars()}
+                    <div>
+                        {this._ratingToStars()}
+                    </div>
+                    {this.props.rating}
                 </div>
             </div>
         )

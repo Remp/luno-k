@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SearchForm from './SearchForm';
 import '../styles/Navigation_own.css';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
 
 /*
     props: {
@@ -12,6 +13,9 @@ export default class Navigation extends Component{
     constructor(){
         super();
         this.toggleHandler = this.toggleHandler.bind(this);
+    }
+    static contextTypes = {
+        router: PropTypes.func.isRequired
     }
     toggleHandler(){
         if (this.$collapseMenu.css('display') === 'none')
@@ -25,6 +29,9 @@ export default class Navigation extends Component{
     }
     componentWillUnmount(){
         $('.own-main').off('click', this.toggleHandler);
+    }
+    redirectTo(path){
+        this.context.router.history.push(path);
     }
     render(){
         return (
@@ -52,7 +59,7 @@ export default class Navigation extends Component{
                         {
                             this.props.user 
                             ?
-                            <li>
+                            <li onClick={() => this.redirectTo('/fav')}>
                                 <i style={{color: '#f70606'}} className="fas fa-heart"></i>
                                 Favorites
                             </li>
@@ -67,7 +74,7 @@ export default class Navigation extends Component{
                                 Sign out
                             </li>
                             :
-                            <li>
+                            <li onClick={() => this.redirectTo('/fav')}>
                                 <i className="fas fa-sign-in-alt"></i>
                                 Sign in
                             </li>

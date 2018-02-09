@@ -13,7 +13,6 @@ class FilmsList extends Component{
             columnWidth: '.own-item-sizer',
             itemSelector: '.own-item',
             percentPosition: true,
-            fitWidth: true
         }
         return (
             <Masonry
@@ -21,7 +20,7 @@ class FilmsList extends Component{
                 option={masonryOptions}
             >
                 <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4} title='sinister' />
+                    <FilmCard posterImg={poster} rating={4.2} title='sinister' />
                 </div>
                 <div className="own-item">
                     <FilmCard posterImg={duel} rating={4} title='sinister' />
