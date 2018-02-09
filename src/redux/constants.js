@@ -1,0 +1,5 @@
+export default {
+    START_FILMS_REQUEST: 1,
+    FINISH_FILMS_REQUEST: 2,
+    CHANGE_SEARCH_STRING: 3
+}
