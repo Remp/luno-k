@@ -26,8 +26,7 @@ class SearchForm extends Component{
     }
 }
 export default connect(state => {
-    const parsed = state.toJS();
     return {
-        searchString: parsed.searchString || ''
+        searchString: state.get('searchString') || ''
     }
 })(SearchForm);

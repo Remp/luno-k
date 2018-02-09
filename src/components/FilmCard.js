@@ -4,12 +4,13 @@ import '../styles/FilmCard.css';
 export default class FilmCard extends Component{
     _ratingToStars(){
         const stars = [];
-        const rating = Math.round(this.props.rating);
+        const rating = Math.round(this.props.rating / 2);
         for (let i = 0; i < 5; i++)
             stars.push(i < rating ? <i className='fas fa-star gold'/> : <i className='far fa-star gold'/>)
         return stars;
     }
-    render(){        
+    render(){  
+        const rating = Math.round(this.props.rating * 10) / 10
         return (
             <div className="own-film-card">
                 <div className="own-poster">
@@ -20,7 +21,7 @@ export default class FilmCard extends Component{
                     <div>
                         {this._ratingToStars()}
                     </div>
-                    {this.props.rating}
+                    {rating}
                 </div>
             </div>
         )

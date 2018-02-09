@@ -22,5 +22,5 @@ function switchLoading(state){
     return state.update('isFilmLoading', l => !l)
 }
 function finishLoading(state, films){
-    return state.update('films', films);
+    return state.set('films', films);
 }

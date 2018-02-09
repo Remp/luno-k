@@ -5,12 +5,14 @@ import {BrowserRouter} from 'react-router';
 import FilmsList from './FilmsListMasonry';
 import $ from 'jquery';
 import {Route, Switch} from 'react-router-dom';
+import tbmdApi from '../tmdbApi';
 
 export default class App extends Component{
     componentDidMount(){
         this.$main.css({
             paddingTop: $('.own-navbar').height()
-        })
+        });
+        tbmdApi.getMostRatedFilms();
     }
     render(){
         return (

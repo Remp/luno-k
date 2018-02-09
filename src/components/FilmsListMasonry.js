@@ -3,9 +3,8 @@ import FilmCard from './FilmCard';
 import '../styles/FilmsListMasonry.css';
 import {Grid, Row, Col} from 'react-bootstrap';
 import Masonry from 'react-masonry-component';
-
-import poster from '../images/sinister.jpg';
-import duel from '../images/duel.jpg';
+import CircularProgress from 'material-ui/CircularProgress';
+import {connect} from 'react-redux';
 
 class FilmsList extends Component{
     render(){
@@ -14,38 +13,54 @@ class FilmsList extends Component{
             itemSelector: '.own-item',
             percentPosition: true,
         }
+        if (this.props.isFilmLoading)
+            return (
+                <div className="own-loading-form">
+                    <CircularProgress size={60} thikness={7} />
+                </div>
+            )
+        const searchString = this.props.searchString.trim();
+        const reg = RegExp(`${searchString}`, 'i');
         return (
             <Masonry
                 className='own-film-list'
                 option={masonryOptions}
             >
-                <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4.2} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={duel} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={duel} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={poster} rating={4} title='sinister' />
-                </div>
-                <div className="own-item">
-                    <FilmCard posterImg={duel} rating={4} title='sinister' />
-                </div>
+                {
+                    this.props.films.map(el => {
+                        const r = el.title.search(reg);
+                        if (searchString){
+                            if ((el.title.search(reg) != -1))
+                                {return (
+                                    <div className="own-item">
+                                        <FilmCard 
+                                            posterImg={`https://image.tmdb.org/t/p/w500${el.poster_path}`} 
+                                            rating={el.vote_average} 
+                                        />
+                                    </div>
+                                )
+                            }
+                        }
+                        else
+                            return (
+                                <div className="own-item">
+                                    <FilmCard 
+                                        posterImg={`https://image.tmdb.org/t/p/w500${el.poster_path}`} 
+                                        rating={el.vote_average} 
+                                    />
+                                </div>
+                            )
 
+                    })
+                }
             </Masonry>
         )
     }
 }
-export default FilmsList;
+export default connect(state => {
+    return {
+        isFilmLoading: state.get('isFilmLoading'),
+        films: state.get('films'),
+        searchString: state.get('searchString')
+    }
+})(FilmsList);

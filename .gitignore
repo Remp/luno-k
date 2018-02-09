@@ -4,6 +4,7 @@
 
 /src/styles/*.css
 /src/styles/*.map
+/.vscode
 
 # testing
 /coverage

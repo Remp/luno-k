@@ -1,3 +1,4 @@
+@import './constants.less';
 .own-film-list{
     .own-item, .own-item-sizer{
         margin: 2px;
@@ -6,7 +7,14 @@
             width: 32.5%;
         }
         @media (min-width: 993px){
-            width: 12.2%;
+            width: 12%;
         }
     }
+}
+.own-loading-form{
+    text-align: center;
+    align-content: center;
+    padding-top: 5rem;
+    font-size: 3rem;
+    color: @loading-color;
 }
