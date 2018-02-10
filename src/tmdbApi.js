@@ -18,6 +18,18 @@ export default {
             error: onErrorHandler,
         })
     },
+    getCertainMovie(id){
+        $.ajax({
+            url: `${baseUrl}/3/movie/${id}?api_key=${KEY}`,
+            method: 'GET',
+            crossDomain: true,
+            dataType: 'jsonp',
+            accepts: 'application/json',
+            success: dispatchCertainFilm,
+            beforeSend: beforeSend,
+            error: onErrorHandler,
+        })
+    }
 }
 function onErrorHandler(x, str, a){
     const xx = x;
@@ -28,7 +40,13 @@ function dispatchFilms(data){
         films: data.results
     });
 }
-function beforeSend(xhr){
+function dispatchCertainFilm(data){
+    store.dispatch({
+        type: constants.FINISH_CERTAIN_FILM_REQUEST,
+        film: data
+    })
+}
+function beforeSend(){
     store.dispatch({
         type: constants.START_FILMS_REQUEST
     })

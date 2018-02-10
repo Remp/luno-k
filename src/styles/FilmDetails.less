@@ -1,0 +1,37 @@
+.own-film-page{
+    display: grid;
+    grid-template-areas: 'poster poster details details details desc desc desc desc';
+    margin: 0 auto;
+    width: 80%;
+    padding-top: 5rem;
+    @media (max-width: 768px){
+        grid-template-areas: 'poster' 'details' 'desc';
+        width: 100%;
+        padding-top: 0.5rem;
+    }
+    @media (min-width: 769px) and (max-width: 993px){
+        grid-template-areas: 'poster details' 'desc desc';
+        width: 95%;
+        padding-top: 0.5rem;
+    }
+    .own-film-desc{
+        grid-area: desc;
+        margin-left: 2rem;
+        @media (min-width: 769px) and (max-width: 993px){
+            margin-top: 1rem;
+        }
+        h2{
+            margin-top: 0;
+        }
+    }
+    .own-film-poster{
+        grid-area: poster;
+        margin: 0 1rem;
+        img{
+            width: 100%;
+        }
+    }
+    .own-film-details{
+        grid-area: details;
+    }
+}

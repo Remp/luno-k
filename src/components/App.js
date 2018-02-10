@@ -6,6 +6,7 @@ import FilmsList from './FilmsListMasonry';
 import $ from 'jquery';
 import {Route, Switch} from 'react-router-dom';
 import tbmdApi from '../tmdbApi';
+import FilmDetails from './FilmDetails';
 
 export default class App extends Component{
     componentDidMount(){
@@ -21,7 +22,7 @@ export default class App extends Component{
                 <main ref={el => this.$main = $(el)}>
                     <Switch>
                         <Route path='/fav' component={() => <div> Hello</div>} />
-                        <Route path='/film=:id' component={() => <div> Hello</div>} />
+                        <Route path='/film=:id' component={FilmDetails} />
                         <Route path='/' component={FilmsList}/>
                     </Switch>
                 </main>

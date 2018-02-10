@@ -7,6 +7,22 @@ import CircularProgress from 'material-ui/CircularProgress';
 import {connect} from 'react-redux';
 
 class FilmsList extends Component{
+    onFilmClickHandler(id){
+        this.props.history.push(`/film=${id}`);
+    }
+    renderCard(id, poster, vote){
+        return (
+            <div 
+                className="own-item"  
+                onClick={() => this.onFilmClickHandler(id)}                                     
+            >
+                <FilmCard 
+                    posterImg={`https://image.tmdb.org/t/p/w500${poster}`} 
+                    rating={vote} 
+                />
+            </div>
+        )
+    }
     render(){
         const masonryOptions = {
             columnWidth: '.own-item-sizer',
@@ -30,25 +46,15 @@ class FilmsList extends Component{
                     this.props.films.map(el => {
                         const r = el.title.search(reg);
                         if (searchString){
-                            if ((el.title.search(reg) != -1))
-                                {return (
-                                    <div className="own-item">
-                                        <FilmCard 
-                                            posterImg={`https://image.tmdb.org/t/p/w500${el.poster_path}`} 
-                                            rating={el.vote_average} 
-                                        />
-                                    </div>
+                            if (el.title.search(reg) != -1){
+                                return (
+                                    this.renderCard(el.id, el.poster_path, el.vote_average)
                                 )
                             }
                         }
                         else
                             return (
-                                <div className="own-item">
-                                    <FilmCard 
-                                        posterImg={`https://image.tmdb.org/t/p/w500${el.poster_path}`} 
-                                        rating={el.vote_average} 
-                                    />
-                                </div>
+                                this.renderCard(el.id, el.poster_path, el.vote_average)
                             )
 
                     })
