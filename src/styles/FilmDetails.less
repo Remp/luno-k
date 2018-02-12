@@ -1,23 +1,32 @@
+@import './constants.less';
 .own-film-page{
     display: grid;
-    grid-template-areas: 'poster poster details details details desc desc desc desc';
+    grid-template-areas: 'poster poster details details details desc desc desc desc'
+        'trailer trailer trailer trailer trailer trailer trailer trailer trailer';
     margin: 0 auto;
     width: 80%;
     padding-top: 5rem;
     @media (max-width: 768px){
-        grid-template-areas: 'poster' 'details' 'desc';
+        grid-template-areas: 'poster' 'details' 'desc' 'trailer';
         width: 100%;
         padding-top: 0.5rem;
     }
     @media (min-width: 769px) and (max-width: 993px){
-        grid-template-areas: 'poster details' 'desc desc';
+        grid-template-areas: 'poster details' 'desc desc' 'trailer trailer';
         width: 95%;
         padding-top: 0.5rem;
     }
     .own-film-desc{
         grid-area: desc;
         margin-left: 2rem;
+        height: 100%;
+        padding: 1rem;
         @media (min-width: 769px) and (max-width: 993px){
+            margin-top: 1rem;
+            margin-left: 0;
+        }
+        @media (max-width: 768px){
+            margin-left: 0;
             margin-top: 1rem;
         }
         h2{
@@ -27,11 +36,50 @@
     .own-film-poster{
         grid-area: poster;
         margin: 0 1rem;
+        height: 100%;
+        @media (min-width: 769px) and (max-width: 993px){
+            margin-left: 0;
+        }
         img{
             width: 100%;
         }
     }
     .own-film-details{
         grid-area: details;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        @media (max-width: 768px){
+            margin-top: 1rem;
+        }
+        i{
+            margin-left:0.6rem;
+            color: @gold;
+        }
+        li{
+            padding: 1rem;
+            &:nth-child(even){
+                background-color: rgba(22, 22, 75, 0.699);
+            }
+        }
+    }
+    .own-film-trailer{
+        grid-area: trailer;
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+        iframe{
+            width: 80%;
+            height: 400px;
+            @media (max-width: 992px){
+                width: 100%;
+                height: 300px;
+            }
+        }
+    }
+    .own-blue{
+        background-color: rgba(51, 51, 199, 0.699);
+        border: 1px solid rgb(13, 13, 219);
+        color: white;
     }
 }

@@ -5,7 +5,8 @@ const def = fromJS({
     films: fromJS([]),
     currentFilm: fromJS({}),
     searchString: '',
-    isFilmLoading: false
+    isFilmLoading: false,
+    isVideoLoading: false,
 })
 export default (state = def, action) => {
     switch (action.type){
@@ -17,6 +18,10 @@ export default (state = def, action) => {
             return state.set('searchString', action.searchString)
         case constants.FINISH_CERTAIN_FILM_REQUEST: 
             return finishCertainFilmLoading(switchLoading(state), action.film)
+        case constants.START_VIDEO_REQUEST:
+            return switchVideoLoading(state)
+        case constants.FINISH_VIDEO_REQUEST:
+            return finishVideoLoading(switchVideoLoading(state), action.trailer)
         default: 
             return state
     }
@@ -31,5 +36,11 @@ function finishFilmsLoading(state, films){
     return state.set('films', films);
 }
 function finishCertainFilmLoading(state, film){
-    return state.set('currentFilm', film)
+    return state.set('currentFilm', fromJS(film))
+}
+function finishVideoLoading(state, trailer){
+    return state.setIn(['currentFilm', 'trailer'], trailer)
+}
+function switchVideoLoading(state){
+    return state.update('isVideoLoading', l => !l);
 }
