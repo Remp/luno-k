@@ -7,6 +7,7 @@ import $ from 'jquery';
 import {Route, Switch} from 'react-router-dom';
 import {getMostRatedFilms} from '../tmdbApi';
 import FilmDetails from './FilmDetails';
+import Auth from './Auth';
 
 export default class App extends Component{
     componentDidMount(){
@@ -26,6 +27,7 @@ export default class App extends Component{
                         <Route path='/' component={FilmsList}/>
                     </Switch>
                 </main>
+                <Auth />
             </div>
         )
     }

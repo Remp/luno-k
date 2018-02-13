@@ -7,6 +7,7 @@ const def = fromJS({
     searchString: '',
     isFilmLoading: false,
     isVideoLoading: false,
+    isAuthOpen: false
 })
 export default (state = def, action) => {
     switch (action.type){
@@ -22,6 +23,12 @@ export default (state = def, action) => {
             return switchVideoLoading(state)
         case constants.FINISH_VIDEO_REQUEST:
             return finishVideoLoading(switchVideoLoading(state), action.trailer)
+        case constants.TOGGLE_AUTH_DIALOG:
+            return state.update('isAuthOpen', l => !l);
+        case constants.AUTHORIZATION:
+            return state.set('user', action.user);
+        case constants.SIGN_OUT:
+            return state.delete('user');
         default: 
             return state
     }

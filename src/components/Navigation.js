@@ -3,13 +3,16 @@ import SearchForm from './SearchForm';
 import '../styles/Navigation_own.css';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
+import store from '../redux/store';
+import constants from '../redux/constants';
+import {connect} from 'react-redux';
 
 /*
     props: {
         user: val
     }
  */
-export default class Navigation extends Component{
+class Navigation extends Component{
     constructor(){
         super();
         this.toggleHandler = this.toggleHandler.bind(this);
@@ -32,6 +35,16 @@ export default class Navigation extends Component{
     }
     redirectTo(path){
         this.context.router.history.push(path);
+    }
+    signInHandler(){
+        store.dispatch({
+            type: constants.TOGGLE_AUTH_DIALOG
+        })
+    }
+    signOutHandler(){
+        store.dispatch({
+            type: constants.SIGN_OUT
+        })
     }
     render(){
         return (
@@ -69,12 +82,12 @@ export default class Navigation extends Component{
                         {
                             this.props.user
                             ?
-                            <li>
+                            <li onClick={() => this.signOutHandler()}>
                                 <i className="fas fa-sign-out-alt"></i>
                                 Sign out
                             </li>
                             :
-                            <li onClick={() => this.redirectTo('/fav')}>
+                            <li onClick={() => this.signInHandler()}>
                                 <i className="fas fa-sign-in-alt"></i>
                                 Sign in
                             </li>
@@ -96,3 +109,8 @@ export default class Navigation extends Component{
         )
     }
 }
+export default connect(state => {
+    return {
+        user: state.get('user')
+    }
+})(Navigation);
