@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import store from './redux/store';
 import constants from './redux/constants';
+import {checkFavorite} from './serverApi';
 
 const KEY = '1401f3d1730118cc165a525de85c0f6d';
 const baseUrl = 'https://api.themoviedb.org';
@@ -57,6 +58,12 @@ function dispatchCertainFilm(data){
     });
     if (data.video) 
         getTrailer(data.id);
+    if(store.getState().get('user')) 
+        store.dispatch({
+            type: constants.FAV_CHECKING,
+            filmId: data.id
+        })
+
 }
 function beforeSend(){
     store.dispatch({

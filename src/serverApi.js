@@ -30,6 +30,35 @@ export function getFavorites(){
         contentType: 'text/plain'
     })
 }
+export function addToFavorite(film){
+    $.ajax({
+        url: '/fav',
+        method: 'PUT',
+        error: onErrorHandler,
+        data: JSON.stringify({film: film}),
+        contentType: 'application/json',
+        dataType: 'jsonp',
+    })
+}
+export function removeFromFavorite(filmId){
+    $.ajax({
+        url: '/fav',
+        method: 'DELETE',
+        error: onErrorHandler,
+        data: JSON.stringify({filmId: filmId}),
+        contentType: 'application/json'
+    })
+}
+export function checkFavorite(filmId){
+    $.ajax({
+        url: '/checkFav',
+        method: 'POST',
+        error: onErrorHandler,
+        data: JSON.stringify({filmId: filmId}),
+        contentType: 'application/json',
+        success: dispatchFavChecking
+    })
+}
 function onErrorHandler(){
     const x = 123;
 }
@@ -38,6 +67,12 @@ function dispatchFavorites(data){
     store.dispatch({
         type: constants.FINISH_FAVORITES_REQUEST,
         favorites: parsed
+    });
+}
+function dispatchFavChecking(data){
+    store.dispatch({
+        type: constants.FINISH_FAV_CHEKING,
+        isFavorite: !!Number.parseInt(data)
     });
 }
 function beforeSend(){

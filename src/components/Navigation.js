@@ -45,13 +45,14 @@ class Navigation extends Component{
         store.dispatch({
             type: constants.SIGN_OUT
         })
-        this.redirectTo('/');
+        if (this.context.router.history.location.pathname === '/fav')
+            this.redirectTo('/');
     }
     render(){
         return (
             <div className="own-navbar">
                 <div className="own-header">
-                    <a href='/' className="own-brand">
+                    <a onClick={() => this.redirectTo('/')} className="own-brand">
                         <i className="fas fa-moon"></i>
                         <span>Luno-K</span>                        
                     </a>

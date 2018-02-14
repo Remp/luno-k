@@ -27,7 +27,14 @@ class Auth extends Component{
                 type: constants.AUTHORIZATION,
                 user: user
             })
+            const currentFilm = store.getState().get('currentFilm');
+            if (currentFilm)
+                store.dispatch({
+                    type: constants.FAV_CHECKING,
+                    filmId: currentFilm.get('id')
+                })
         }
+        
     }
     render(){
         const icon = <i className="fab fa-facebook" />     

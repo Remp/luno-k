@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import '../styles/FilmDetails.css';
 import {connect} from 'react-redux';
 import {getCertainMovie} from '../tmdbApi';
+import {checkFavorite} from '../serverApi';
 import PropTypes from 'prop-types';
 import CircularProgress from 'material-ui/CircularProgress';
+import constants from '../redux/constants';
 
 class FilmDetails extends Component{
     static contextTypes = {
@@ -13,8 +15,17 @@ class FilmDetails extends Component{
         getCertainMovie(this.context.router.route.match.params.id);
     }
     toggleFavorite(){
-        if (this.props.isFavorite){
-            
+        if (!this.props.isFavorite){
+            this.props.dispatch({
+                type: constants.ADD_TO_FAVORITE,
+                film: this.props.film.toJS()
+            })
+        }
+        else{
+            this.props.dispatch({
+                type: constants.REMOVE_FROM_FAVORITE,
+                filmId: this.props.filmId
+            })
         }
     }
     render(){
@@ -38,15 +49,21 @@ class FilmDetails extends Component{
         return (
             <div className="own-film-page">
                 <div className="own-film-poster">
-                    <button onClick={() => this.toggleFavorite()}>
-                        {
-                            this.props.isFavorite
-                            ?
-                            <i className="fas fa-heart"></i>
-                            :
-                            <i className="far fa-heart"></i>
-                        }
-                    </button>
+                    {
+                        this.props.user 
+                        ?
+                        <button onClick={() => this.toggleFavorite()}>
+                            {
+                                this.props.isFavorite
+                                ?
+                                <i className="fas fa-heart"></i>
+                                :
+                                <i className="far fa-heart"></i>
+                            }
+                        </button>
+                        : 
+                        null
+                    }                   
                     <img src={this.props.poster} alt=""/>
                 </div>
                 <div>
@@ -129,6 +146,9 @@ export default connect(state => {
         genres: state.getIn(['currentFilm', 'genres']),
         isFilmLoading: state.get('isFilmLoading'),
         trailer: state.getIn(['currentFilm', 'trailer']),
-        isFavorite: state.getIn(['currentFilm', 'isFavorite'])
+        isFavorite: state.getIn(['currentFilm', 'isFavorite']),
+        filmId: state.getIn(['currentFilm', 'id']),
+        user: state.get('user'),
+        film: state.get('currentFilm')
     }
 })(FilmDetails);

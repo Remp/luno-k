@@ -31,9 +31,18 @@ export default (state = def, action) => {
             return state.delete('user');
         case constants.FINISH_FAVORITES_REQUEST:
             return finishFavoritesLoading(switchLoading(state), action.favorites)
+        case constants.ADD_TO_FAVORITE:
+            return toggleFavorite(state, action.film);
+        case constants.REMOVE_FROM_FAVORITE:
+            return toggleFavorite(state, action.film);
+        case constants.FINISH_FAV_CHEKING:
+            return state.setIn(['currentFilm', 'isFavorite'], action.isFavorite)
         default: 
             return state
     }
+}
+function toggleFavorite(state, film){
+    return state.updateIn(['currentFilm', 'isFavorite'], false, l => !l);
 }
 function finishFavoritesLoading(state, favorites){
     return state.setIn(['user', 'favorites'], favorites)
