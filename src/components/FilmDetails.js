@@ -12,6 +12,11 @@ class FilmDetails extends Component{
     componentDidMount(){
         getCertainMovie(this.context.router.route.match.params.id);
     }
+    toggleFavorite(){
+        if (this.props.isFavorite){
+            
+        }
+    }
     render(){
         if (this.props.isFilmLoading)
             return (
@@ -33,6 +38,15 @@ class FilmDetails extends Component{
         return (
             <div className="own-film-page">
                 <div className="own-film-poster">
+                    <button onClick={() => this.toggleFavorite()}>
+                        {
+                            this.props.isFavorite
+                            ?
+                            <i className="fas fa-heart"></i>
+                            :
+                            <i className="far fa-heart"></i>
+                        }
+                    </button>
                     <img src={this.props.poster} alt=""/>
                 </div>
                 <div>
@@ -114,6 +128,7 @@ export default connect(state => {
         runtime: state.getIn(['currentFilm', 'runtime']),
         genres: state.getIn(['currentFilm', 'genres']),
         isFilmLoading: state.get('isFilmLoading'),
-        trailer: state.getIn(['currentFilm', 'trailer'])
+        trailer: state.getIn(['currentFilm', 'trailer']),
+        isFavorite: state.getIn(['currentFilm', 'isFavorite'])
     }
 })(FilmDetails);

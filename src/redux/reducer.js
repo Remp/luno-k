@@ -26,12 +26,17 @@ export default (state = def, action) => {
         case constants.TOGGLE_AUTH_DIALOG:
             return state.update('isAuthOpen', l => !l);
         case constants.AUTHORIZATION:
-            return state.set('user', action.user);
+            return state.set('user', fromJS(action.user));
         case constants.SIGN_OUT:
             return state.delete('user');
+        case constants.FINISH_FAVORITES_REQUEST:
+            return finishFavoritesLoading(switchLoading(state), action.favorites)
         default: 
             return state
     }
+}
+function finishFavoritesLoading(state, favorites){
+    return state.setIn(['user', 'favorites'], favorites)
 }
 function switchLoading(state){
     return state.update('isFilmLoading', l => !l)

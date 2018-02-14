@@ -45,6 +45,7 @@ class Navigation extends Component{
         store.dispatch({
             type: constants.SIGN_OUT
         })
+        this.redirectTo('/');
     }
     render(){
         return (
@@ -111,6 +112,6 @@ class Navigation extends Component{
 }
 export default connect(state => {
     return {
-        user: state.get('user')
+        user: state.get('user') && state.get('user').toJS()
     }
 })(Navigation);

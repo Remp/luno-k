@@ -63,10 +63,17 @@ class FilmsList extends Component{
         )
     }
 }
-export default connect(state => {
+export const MainFilmsList = connect(state => {
     return {
         isFilmLoading: state.get('isFilmLoading'),
         films: state.get('films'),
+        searchString: state.get('searchString')
+    }
+})(FilmsList);
+export const FavFilmsList = connect(state => {
+    return {
+        isFilmLoading: state.get('isFilmLoading'),
+        films: state.getIn(['user', 'favorites']),
         searchString: state.get('searchString')
     }
 })(FilmsList);
