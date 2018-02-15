@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import '../styles/FilmCard.css';
+import EmptyPoster from './EmptyPoster';
 
 export default class FilmCard extends Component{
     _ratingToStars(){
@@ -15,7 +16,13 @@ export default class FilmCard extends Component{
             <div className="own-film-card">
                 <div className="own-poster">
                     <div className="own-rating"></div>
-                    <img src={this.props.posterImg} alt=""/>
+                    {
+                        this.props.posterImg
+                        ?
+                        <img src={`https://image.tmdb.org/t/p/w500${this.props.posterImg}`} alt=""/>
+                        :
+                        <EmptyPoster title={this.props.title}/>
+                    }
                 </div>
                 <div className="own-desc">
                     <div>

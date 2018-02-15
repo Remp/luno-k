@@ -6,6 +6,7 @@ import {checkFavorite} from '../serverApi';
 import PropTypes from 'prop-types';
 import CircularProgress from 'material-ui/CircularProgress';
 import constants from '../redux/constants';
+import EmptyPoster from './EmptyPoster';
 
 class FilmDetails extends Component{
     static contextTypes = {
@@ -63,8 +64,18 @@ class FilmDetails extends Component{
                         </button>
                         : 
                         null
-                    }                   
-                    <img src={this.props.poster} alt=""/>
+                    }  
+                    {
+                        this.props.poster
+                        ?
+                        <img 
+                            src={`https://image.tmdb.org/t/p/w500${this.props.poster}`} 
+                            alt=""
+                        />
+                        :
+                        <EmptyPoster title={this.props.title}/>
+                    }                 
+                    
                 </div>
                 <div>
                     <ul className="own-film-details own-blue">
@@ -135,7 +146,7 @@ class FilmDetails extends Component{
 }
 export default connect(state => {
     return {
-        poster: `https://image.tmdb.org/t/p/w500${state.getIn(['currentFilm', 'poster_path'])}`,
+        poster: state.getIn(['currentFilm', 'poster_path']),
         title: state.getIn(['currentFilm', 'title']),
         overview: state.getIn(['currentFilm', 'overview']),
         rating: state.getIn(['currentFilm' ,'vote_average']),

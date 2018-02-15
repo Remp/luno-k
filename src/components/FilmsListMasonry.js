@@ -10,15 +10,16 @@ class FilmsList extends Component{
     onFilmClickHandler(id){
         this.props.history.push(`/film=${id}`);
     }
-    renderCard(id, poster, vote){
+    renderCard(id, poster, vote, title){
         return (
             <div 
                 className="own-item"  
                 onClick={() => this.onFilmClickHandler(id)}                                     
             >
                 <FilmCard 
-                    posterImg={`https://image.tmdb.org/t/p/w500${poster}`} 
+                    posterImg={poster} 
                     rating={vote} 
+                    title={title}
                 />
             </div>
         )
@@ -44,17 +45,16 @@ class FilmsList extends Component{
             >
                 {
                     this.props.films.map(el => {
-                        const r = el.title.search(reg);
                         if (searchString){
                             if (el.title.search(reg) != -1){
                                 return (
-                                    this.renderCard(el.id, el.poster_path, el.vote_average)
+                                    this.renderCard(el.id, el.poster_path, el.vote_average, el.title)
                                 )
                             }
                         }
                         else
                             return (
-                                this.renderCard(el.id, el.poster_path, el.vote_average)
+                                this.renderCard(el.id, el.poster_path, el.vote_average, el.title)
                             )
 
                     })
