@@ -44,7 +44,8 @@ class Navigation extends Component{
     signOutHandler(){
         store.dispatch({
             type: constants.SIGN_OUT
-        })
+        });
+        localStorage.removeItem('user');
         if (this.context.router.history.location.pathname === '/fav')
             this.redirectTo('/');
     }

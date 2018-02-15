@@ -126,7 +126,7 @@ class FilmDetails extends Component{
                 
                 <div className="own-film-desc own-blue">
                     <h2>{this.props.title}</h2>
-                    {this.props.description}
+                    {this.props.overview}
                 </div>
                 {trailer}
             </div>
@@ -137,7 +137,7 @@ export default connect(state => {
     return {
         poster: `https://image.tmdb.org/t/p/w500${state.getIn(['currentFilm', 'poster_path'])}`,
         title: state.getIn(['currentFilm', 'title']),
-        description: state.getIn(['currentFilm', 'overview']),
+        overview: state.getIn(['currentFilm', 'overview']),
         rating: state.getIn(['currentFilm' ,'vote_average']),
         releaseDate: state.getIn(['currentFilm', 'release_date']),
         budget: state.getIn(['currentFilm', 'budget']),

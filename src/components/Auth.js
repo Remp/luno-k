@@ -26,7 +26,8 @@ class Auth extends Component{
             store.dispatch({
                 type: constants.AUTHORIZATION,
                 user: user
-            })
+            });
+            localStorage.setItem('user', JSON.stringify(user));
             const currentFilm = store.getState().get('currentFilm');
             if (currentFilm)
                 store.dispatch({

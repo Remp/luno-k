@@ -11,12 +11,22 @@ import {getFavorites} from '../serverApi';
 import FilmDetails from './FilmDetails';
 import Auth from './Auth';
 import store from '../redux/store';
+import constants from '../redux/constants';
+import {fromJS} from 'immutable';
 
 export default class App extends Component{
     componentDidMount(){
         this.$main.css({
             paddingTop: $('.own-navbar').height()
         });
+        const user = localStorage.getItem('user')
+        if (user){
+            store.dispatch({
+                type: constants.AUTHORIZATION,
+                user: JSON.parse(user)
+            })
+        }
+
     }
     render(){
         return (
