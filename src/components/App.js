@@ -26,7 +26,7 @@ export default class App extends Component{
                 user: JSON.parse(user)
             })
         }
-
+        getMostRatedFilms();
     }
     render(){
         return (
@@ -36,13 +36,12 @@ export default class App extends Component{
                     <Switch>
                         <Route path='/fav' component={props => {
                             if (!store.getState().get('user'))
-                                return <Redirect to='/' />
+                                return <Redirect to='/' />                           
                             getFavorites();
                             return <FavFilmsList {...props} />
                         }} />
                         <Route path='/film=:id' component={FilmDetails} />
                         <Route path='/' component={props => {
-                            getMostRatedFilms();
                             return <MainFilmsList {...props} />
                         }}/>
                     </Switch>

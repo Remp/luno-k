@@ -98,7 +98,7 @@ class Navigation extends Component{
                         {
                             this.props.user
                             ?
-                            <li>
+                            <li className='red'>
                                 <i className="fas fa-address-card"></i>
                                 {this.props.user.name}
                             </li>

@@ -52,7 +52,7 @@ class FilmDetails extends Component{
                 <div className="own-film-poster">
                     {
                         this.props.user 
-                        ?
+                        &&
                         <button onClick={() => this.toggleFavorite()}>
                             {
                                 this.props.isFavorite
@@ -62,8 +62,6 @@ class FilmDetails extends Component{
                                 <i className="far fa-heart"></i>
                             }
                         </button>
-                        : 
-                        null
                     }  
                     {
                         this.props.poster

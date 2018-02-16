@@ -5,8 +5,11 @@ import IconButton from 'material-ui/IconButton';
 import {connect} from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import {facebookAppID} from '../config';
+import {googleAppID} from '../config';
 import store from '../redux/store';
 import constants from '../redux/constants';
+import {GoogleLogin} from 'react-google-login';
+import '../styles/Auth.css'
 
 class Auth extends Component{
     handleClose(){
@@ -19,8 +22,12 @@ class Auth extends Component{
         const user = {};
         switch(type){
             case 'facebook':
-                user.id = res.id
-                user.name = res.name
+                user.id = res.id;
+                user.name = res.name;
+                break;
+            case 'google':
+                user.id = res.googleId
+                user.name = res.w3.ig
         }
         if (user.id){
             store.dispatch({
@@ -44,6 +51,7 @@ class Auth extends Component{
                 modal={false}
                 open={this.props.isOpen}
                 onRequestClose={() => this.handleClose()}
+                contentClassName='own-auth'
             >
                 <FacebookLogin
                     appId={facebookAppID}
@@ -51,8 +59,15 @@ class Auth extends Component{
                     fields="name,email,picture"
                     callback={(res) =>  this.responseAuth(res, 'facebook')}
                     size='small'
-                    icon={icon}
-                    textButton=' Facebook'
+                    textButton='Facebook'
+                    cssClass='own-auth-btn blue'
+                />
+                <GoogleLogin
+                    clientId={googleAppID}
+                    buttonText="Google"
+                    onSuccess={(res) => this.responseAuth(res, 'google')}
+                    onFailure={(res) => this.responseAuth(res, 'google')}
+                    className='own-auth-btn red'
                 />
             </Dialog>
         )

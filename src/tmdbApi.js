@@ -6,9 +6,9 @@ import {checkFavorite} from './serverApi';
 const KEY = '1401f3d1730118cc165a525de85c0f6d';
 const baseUrl = 'https://api.themoviedb.org';
 
-export function getMostRatedFilms(){
+export function getMostRatedFilms(page = 1){
     $.ajax({
-        url: `${baseUrl}/3/discover/movie/?api_key=${KEY}&certification_country=US&certification=R&sort_by=vote_average.desc`,
+        url: `${baseUrl}/3/discover/movie/?api_key=${KEY}&certification_country=US&page=${page}&vote_count.gte=1000&certification=R&sort_by=vote_average.desc`,
         method: 'GET',
         crossDomain: true,
         dataType: 'jsonp',
@@ -48,7 +48,9 @@ function onErrorHandler(x, str, a){
 function dispatchFilms(data){
     store.dispatch({
         type: constants.FINISH_FILMS_REQUEST,
-        films: data.results
+        films: data.results,
+        totalPages: data.total_pages,
+        currentPage: data.page
     });
 }
 function dispatchCertainFilm(data){

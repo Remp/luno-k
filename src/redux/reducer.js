@@ -14,7 +14,7 @@ export default (state = def, action) => {
         case constants.START_FILMS_REQUEST:
             return switchLoading(resetCurrentFilm(state));
         case constants.FINISH_FILMS_REQUEST:
-            return finishFilmsLoading(switchLoading(state), action.films)
+            return finishFilmsLoading(switchLoading(setPages(state, action.totalPages, action.currentPage)), action.films)
         case constants.CHANGE_SEARCH_STRING:
             return state.set('searchString', action.searchString)
         case constants.FINISH_CERTAIN_FILM_REQUEST: 
@@ -41,6 +41,9 @@ export default (state = def, action) => {
             return state
     }
 }
+function setPages(state, totalPages, currentPage){
+    return state.set('totalPages', totalPages).set('currentPage', currentPage);
+}
 function toggleFavorite(state, film){
     return state.updateIn(['currentFilm', 'isFavorite'], false, l => !l);
 }
@@ -51,10 +54,10 @@ function switchLoading(state){
     return state.update('isFilmLoading', l => !l)
 }
 function resetCurrentFilm(state){
-    return state.set('currentFilm', {})
+    return state.set('currentFilm', fromJS({}))
 }
 function finishFilmsLoading(state, films){
-    return state.set('films', films);
+    return state.update('films', cfilms => cfilms.push(...films));
 }
 function finishCertainFilmLoading(state, film){
     return state.set('currentFilm', fromJS(film))
