@@ -1,0 +1,88 @@
+@import './constants.less';
+.own-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-color: transparent;
+    overflow: hidden;
+    i{
+        color: @gold;
+        position: relative;
+        margin: 10px;
+        font-size: 40px;
+        opacity: 0.7;
+        &.red{
+            color: @red
+        }
+        &.green{
+            color: @green;
+        }
+        &.gold{
+            color: @gold
+        }
+        &.purple{
+            color: @purple
+        }
+        &.blue{
+            color: @loading-color
+        }
+        &.black{
+            color: #000000
+        }
+        &.dark-blue{
+            color: #082a5c
+        }
+        &.anim1{
+            animation: 4s ease-in-out infinite anim1;
+        }
+        &.anim2{
+            animation: 2.3s ease-in-out infinite alternate-reverse  anim2;
+        }
+        &.anim3{
+            animation: 6s ease-in-out infinite alternate-reverse  anim3;
+        }
+        &.anim4{
+            animation: 7s ease-in-out infinite alternate-reverse  anim4;
+        }
+        &.anim5{
+            animation: 5.4s ease infinite alternate-reverse  anim5;
+        }
+    }
+}
+@keyframes anim1{
+    from{
+        transform: rotate(0deg)
+    }
+    to{
+        transform: rotate(359deg)
+    }
+}
+@keyframes anim2 {
+    to{
+        transform: matrix(0.5, 0, 0, 0.5, 20, 20)
+    }
+}
+@keyframes anim3 {
+    from{
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    to{
+        transform: matrix(1, 0, 0, 1, 50, 0);
+    }
+}
+@keyframes anim4 {
+    from{
+        transform: matrix(1, 0, 0, 1, 0, 0);
+    }
+    to{
+        transform: matrix(1, 0, 0, 1, 0, 50);
+    }
+}
+@keyframes anim5 {
+    to{
+        transform: matrix(0.3, 0, 0, 0.3, 0, 0);
+    }
+}

@@ -7,6 +7,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import {connect} from 'react-redux';
 import {getMostRatedFilms} from '../tmdbApi';
 import Error from './Error';
+import $ from 'jquery';
+import Loading from './Loading';
 
 class FilmsList extends Component{
     onFilmClickHandler(id){
@@ -26,6 +28,11 @@ class FilmsList extends Component{
             </div>
         )
     }
+    componentDidMount(){
+        this.$panel.css({
+            maxHeight: window.innerHeight - $('.own-header').height()
+        })
+    }
     onMoreClickHandler(){
         getMostRatedFilms(this.props.currentPage + 1);
     }
@@ -41,7 +48,7 @@ class FilmsList extends Component{
         const searchString = this.props.searchString.trim();
         const reg = RegExp(`${searchString}`, 'i');
         return (
-            <div>
+            <div ref={el => this.$panel = $(el)} className='own-film-panel'>
                 <Masonry
                     className='own-film-list'
                     option={masonryOptions}
@@ -66,9 +73,7 @@ class FilmsList extends Component{
                 {
                     this.props.isFilmLoading
                     ?
-                    <div className="own-loading-form">
-                        <CircularProgress size={60} thikness={7} />
-                    </div>
+                    <Loading />
                     :
                     this.props.currentPage < this.props.totalPages
                     &&

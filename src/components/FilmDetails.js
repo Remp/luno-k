@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import {getCertainMovie} from '../tmdbApi';
 import {checkFavorite} from '../serverApi';
 import PropTypes from 'prop-types';
-import CircularProgress from 'material-ui/CircularProgress';
 import constants from '../redux/constants';
 import EmptyPoster from './EmptyPoster';
 import Error from './Error';
+import Loading from './Loading';
 
 class FilmDetails extends Component{
     static contextTypes = {
@@ -32,11 +32,7 @@ class FilmDetails extends Component{
     }
     render(){
         if (this.props.isFilmLoading)
-            return (
-                <div className="own-loading-form">
-                    <CircularProgress size={60} thikness={7} />
-                </div>
-            )
+            return <Loading />
         if (this.props.error){
             return <Error error={this.props.error} />
         }

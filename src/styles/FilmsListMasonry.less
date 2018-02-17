@@ -1,31 +1,36 @@
 @import './constants.less';
-.own-film-list{
-    .own-item, .own-item-sizer{
-        margin: 2px;
-        width: 48%;
-        @media (min-width: 769px) and (max-width: 992px){
-            width: 32.5%;
+.own-film-panel{
+    overflow: auto;
+    max-height: 100vh;
+    .own-film-list{
+        .own-item, .own-item-sizer{
+            margin: 2px;
+            width: 48%;
+            @media (min-width: 769px) and (max-width: 992px){
+                width: 32.5%;
+            }
+            @media (min-width: 993px){
+                width: 12%;
+            }
         }
-        @media (min-width: 993px){
-            width: 12%;
+    }
+    .own-loading-form{
+        text-align: center;
+        align-content: center;
+        font-size: 3rem;
+        color: @loading-color;
+    }
+    .own-more{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        color: @red;
+        font-size: 3rem;
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.404)
         }
     }
 }
-.own-loading-form{
-    text-align: center;
-    align-content: center;
-    font-size: 3rem;
-    color: @loading-color;
-}
-.own-more{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    color: @red;
-    font-size: 3rem;
-    cursor: pointer;
-    &:hover{
-        background-color: rgba(0, 0, 0, 0.404)
-    }
-}
+

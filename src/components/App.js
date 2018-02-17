@@ -13,6 +13,7 @@ import Auth from './Auth';
 import store from '../redux/store';
 import constants from '../redux/constants';
 import {fromJS} from 'immutable';
+import Background from './Background';
 
 export default class App extends Component{
     componentDidMount(){
@@ -45,8 +46,10 @@ export default class App extends Component{
                             return <MainFilmsList {...props} />
                         }}/>
                     </Switch>
+                    <Background />
                 </main>
                 <Auth />
+                
             </div>
         )
     }
