@@ -32,6 +32,11 @@ class FilmsList extends Component{
         this.$panel.css({
             maxHeight: window.innerHeight - $('.own-header').height()
         })
+        this.$panel.scrollTop(window.filmListScroll || 0)
+    }
+    componentWillUnmount(){
+        window.filmListScroll = this.$panel.scrollTop();
+        
     }
     onMoreClickHandler(){
         getMostRatedFilms(this.props.currentPage + 1);
