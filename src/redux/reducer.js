@@ -7,39 +7,45 @@ const def = fromJS({
     searchString: '',
     isFilmLoading: false,
     isVideoLoading: false,
-    isAuthOpen: false
+    isAuthOpen: false,
+    error: null
 })
 export default (state = def, action) => {
     switch (action.type){
         case constants.START_FILMS_REQUEST:
             return switchLoading(resetCurrentFilm(state));
         case constants.FINISH_FILMS_REQUEST:
-            return finishFilmsLoading(switchLoading(setPages(state, action.totalPages, action.currentPage)), action.films)
+            return resetError(finishFilmsLoading(switchLoading(setPages(state, action.totalPages, action.currentPage)), action.films))
         case constants.CHANGE_SEARCH_STRING:
             return state.set('searchString', action.searchString)
         case constants.FINISH_CERTAIN_FILM_REQUEST: 
-            return finishCertainFilmLoading(switchLoading(state), action.film)
+            return resetError(finishCertainFilmLoading(switchLoading(state), action.film))
         case constants.START_VIDEO_REQUEST:
             return switchVideoLoading(state)
         case constants.FINISH_VIDEO_REQUEST:
-            return finishVideoLoading(switchVideoLoading(state), action.trailer)
+            return resetError(finishVideoLoading(switchVideoLoading(state), action.trailer))
         case constants.TOGGLE_AUTH_DIALOG:
             return state.update('isAuthOpen', l => !l);
         case constants.AUTHORIZATION:
-            return state.set('user', fromJS(action.user));
+            return resetError(state.set('user', fromJS(action.user)))
         case constants.SIGN_OUT:
             return state.delete('user');
         case constants.FINISH_FAVORITES_REQUEST:
-            return finishFavoritesLoading(switchLoading(state), action.favorites)
+            return resetError(finishFavoritesLoading(switchLoading(state), action.favorites))
         case constants.ADD_TO_FAVORITE:
             return toggleFavorite(state, action.film);
         case constants.REMOVE_FROM_FAVORITE:
             return toggleFavorite(state, action.film);
         case constants.FINISH_FAV_CHEKING:
-            return state.setIn(['currentFilm', 'isFavorite'], action.isFavorite)
+            return resetError(state.setIn(['currentFilm', 'isFavorite'], action.isFavorite))
+        case constants.ERROR: 
+            return state.set('error', action.error)
         default: 
-            return state
+            return resetError(state)
     }
+}
+function resetError(state){
+    return state.delete('error');
 }
 function setPages(state, totalPages, currentPage){
     return state.set('totalPages', totalPages).set('currentPage', currentPage);

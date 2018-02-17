@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from 'material-ui/CircularProgress';
 import constants from '../redux/constants';
 import EmptyPoster from './EmptyPoster';
+import Error from './Error';
 
 class FilmDetails extends Component{
     static contextTypes = {
@@ -36,6 +37,9 @@ class FilmDetails extends Component{
                     <CircularProgress size={60} thikness={7} />
                 </div>
             )
+        if (this.props.error){
+            return <Error error={this.props.error} />
+        }
         const trailer = (() => {
             if (this.props.trailer)
                 return (
@@ -158,6 +162,7 @@ export default connect(state => {
         isFavorite: state.getIn(['currentFilm', 'isFavorite']),
         filmId: state.getIn(['currentFilm', 'id']),
         user: state.get('user'),
-        film: state.get('currentFilm')
+        film: state.get('currentFilm'),
+        error: state.get('error')
     }
 })(FilmDetails);

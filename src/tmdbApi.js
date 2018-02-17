@@ -39,11 +39,16 @@ export function getTrailer(id){
         accepts: 'application/json',
         success: dispatchVideo,
         beforeSend: beforeSendVideo,
-        error: onErrorHandler,
     })
 }
-function onErrorHandler(x, str, a){
-    const xx = x;
+function onErrorHandler(err){
+    store.dispatch({
+        type: constants.ERROR,
+        error: {
+            status: err.status,
+            statusText: err.statusText
+        }
+    })
 }
 function dispatchFilms(data){
     store.dispatch({

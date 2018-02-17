@@ -59,8 +59,14 @@ export function checkFavorite(filmId){
         success: dispatchFavChecking
     })
 }
-function onErrorHandler(){
-    const x = 123;
+function onErrorHandler(err){
+    store.dispatch({
+        type: constants.ERROR,
+        error: {
+            status: err.status,
+            statusText: err.statusText
+        }
+    })
 }
 function dispatchFavorites(data){
     const parsed = JSON.parse(data);

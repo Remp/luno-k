@@ -6,6 +6,7 @@ import Masonry from 'react-masonry-component';
 import CircularProgress from 'material-ui/CircularProgress';
 import {connect} from 'react-redux';
 import {getMostRatedFilms} from '../tmdbApi';
+import Error from './Error';
 
 class FilmsList extends Component{
     onFilmClickHandler(id){
@@ -29,17 +30,14 @@ class FilmsList extends Component{
         getMostRatedFilms(this.props.currentPage + 1);
     }
     render(){
+        if (this.props.error){
+            return <Error error={this.props.error} />
+        }
         const masonryOptions = {
             columnWidth: '.own-item-sizer',
             itemSelector: '.own-item',
             percentPosition: true,
         }
-        // if (this.props.isFilmLoading)
-        //     return (
-        //         <div className="own-loading-form">
-        //             <CircularProgress size={60} thikness={7} />
-        //         </div>
-        //     )
         const searchString = this.props.searchString.trim();
         const reg = RegExp(`${searchString}`, 'i');
         return (
@@ -90,13 +88,15 @@ export const MainFilmsList = connect(state => {
         films: state.get('films'),
         searchString: state.get('searchString'),
         currentPage: state.get('currentPage'),
-        totalPages: state.get('totalPages')
+        totalPages: state.get('totalPages'),
+        error: state.get('error')
     }
 })(FilmsList);
 export const FavFilmsList = connect(state => {
     return {
         isFilmLoading: state.get('isFilmLoading'),
         films: state.getIn(['user', 'favorites']),
-        searchString: state.get('searchString')
+        searchString: state.get('searchString'),
+        error: state.get('error')
     }
 })(FilmsList);
