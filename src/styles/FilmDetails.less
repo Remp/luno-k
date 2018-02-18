@@ -6,6 +6,13 @@
     margin: 0 auto;
     width: 80%;
     padding-top: 5rem;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }     
+    &::-webkit-scrollbar-thumb {
+        background-color: @scroll-color;
+    }
     @media (max-width: 768px){
         grid-template-areas: 'poster' 'details' 'desc' 'trailer';
         width: 100%;

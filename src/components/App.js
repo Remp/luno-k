@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Navigation from './Navigation';
 import '../styles/App.css';
-import {BrowserRouter} from 'react-router';
 import {MainFilmsList} from './FilmsListMasonry';
 import {FavFilmsList} from './FilmsListMasonry';
 import $ from 'jquery';
@@ -12,22 +11,24 @@ import FilmDetails from './FilmDetails';
 import Auth from './Auth';
 import store from '../redux/store';
 import constants from '../redux/constants';
-import {fromJS} from 'immutable';
-import Background from './Background';
 
 export default class App extends Component{
     componentDidMount(){
         this.$main.css({
-            paddingTop: $('.own-navbar').height()
+            paddingTop: $('.own-header').height()
         });
         const user = localStorage.getItem('user')
+        // auth if user data saved
         if (user){
             store.dispatch({
                 type: constants.AUTHORIZATION,
                 user: JSON.parse(user)
             })
-        }
+        }       
         getMostRatedFilms();
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.onResize)
     }
     render(){
         return (
@@ -46,7 +47,6 @@ export default class App extends Component{
                             return <MainFilmsList {...props} />
                         }}/>
                     </Switch>
-                    <Background />
                 </main>
                 <Auth />
                 

@@ -8,13 +8,30 @@ import constants from '../redux/constants';
 import EmptyPoster from './EmptyPoster';
 import Error from './Error';
 import Loading from './Loading';
+import $ from 'jquery';
 
 class FilmDetails extends Component{
+    constructor(){
+        super();
+        this.onResize = this.onResize.bind(this);
+    }
     static contextTypes = {
         router: PropTypes.func.isRequired
     }
     componentDidMount(){
+        window.addEventListener('resize', this.onResize);
         getCertainMovie(this.context.router.route.match.params.id);
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.onResize);
+    }
+    componentDidUpdate(){
+        this.onResize();
+    }
+    onResize(){
+        this.$panel.css({
+            maxHeight: window.innerHeight - $('.own-header').innerHeight()
+        })
     }
     toggleFavorite(){
         if (!this.props.isFavorite){
@@ -48,7 +65,7 @@ class FilmDetails extends Component{
                 )
         })();
         return (
-            <div className="own-film-page">
+            <div ref={el => this.$panel = $(el)} className="own-film-page">
                 <div className="own-film-poster">
                     {
                         this.props.user 
@@ -82,7 +99,7 @@ class FilmDetails extends Component{
                             {
                                 (this.props.productCompanies
                                 ?
-                                this.props.productCompanies.map(el => el.name).join(', ')
+                                this.props.productCompanies.map(el => el.get('name')).join(', ')
                                 :null)
                                 ||
                                 'unknown'

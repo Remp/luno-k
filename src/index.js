@@ -7,12 +7,16 @@ import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Background from './components/Background';
 
 ReactDOM.render((
     <MuiThemeProvider>
         <BrowserRouter>
             <Provider store={store}>
-                <App />
+                <div>
+                    <Background />
+                    <App />
+                </div>
             </Provider>
         </BrowserRouter>
     </MuiThemeProvider>), 

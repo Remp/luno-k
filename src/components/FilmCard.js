@@ -3,7 +3,7 @@ import '../styles/FilmCard.css';
 import EmptyPoster from './EmptyPoster';
 
 export default class FilmCard extends Component{
-    _ratingToStars(){
+    ratingToStars(){
         const stars = [];
         const rating = Math.round(this.props.rating / 2);
         for (let i = 0; i < 5; i++)
@@ -26,7 +26,7 @@ export default class FilmCard extends Component{
                 </div>
                 <div className="own-desc">
                     <div>
-                        {this._ratingToStars()}
+                        {this.ratingToStars()}
                     </div>
                     {rating}
                 </div>

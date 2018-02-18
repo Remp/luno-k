@@ -11,6 +11,10 @@ import $ from 'jquery';
 import Loading from './Loading';
 
 class FilmsList extends Component{
+    constructor(){
+        super();
+        this.onResize = this.onResize.bind(this)
+    }
     onFilmClickHandler(id){
         this.props.history.push(`/film=${id}`);
     }
@@ -29,10 +33,17 @@ class FilmsList extends Component{
         )
     }
     componentDidMount(){
+        this.onResize();
+        window.addEventListener('resize', this.onResize);
+        this.$panel.scrollTop(window.filmListScroll || 0)
+    }
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.onResize);
+    }
+    onResize(){
         this.$panel.css({
             maxHeight: window.innerHeight - $('.own-header').height()
         })
-        this.$panel.scrollTop(window.filmListScroll || 0)
     }
     componentWillUnmount(){
         window.filmListScroll = this.$panel.scrollTop();

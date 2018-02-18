@@ -1,7 +1,12 @@
 @import './constants.less';
 .own-film-panel{
     overflow: auto;
-    max-height: 100vh;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }     
+    &::-webkit-scrollbar-thumb {
+        background-color: @scroll-color;
+    }
     .own-film-list{
         .own-item, .own-item-sizer{
             margin: 2px;

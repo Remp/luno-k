@@ -7,11 +7,6 @@ import store from '../redux/store';
 import constants from '../redux/constants';
 import {connect} from 'react-redux';
 
-/*
-    props: {
-        user: val
-    }
- */
 class Navigation extends Component{
     constructor(){
         super();
@@ -58,10 +53,10 @@ class Navigation extends Component{
                         <span>Luno-K</span>                        
                     </a>
                     <SearchForm />
-                    <div className="own-filter">
+                    {/* <div className="own-filter">
                         <i className="fas fa-filter"></i>
                         <span>Filter</span>                        
-                    </div>
+                    </div> */}
                     <button 
                         ref={el => this.$btnToggler = $(el)} 
                         onClick={() => this.toggleHandler()} 
