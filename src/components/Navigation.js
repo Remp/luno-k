@@ -35,7 +35,7 @@ class Navigation extends Component{
     }
     signInHandler(){
         store.dispatch({
-            type: constants.OPEN_AUTH_DIALOG
+            type: constants.TOGGLE_AUTH_DIALOG
         })
     }
     signOutHandler(){
