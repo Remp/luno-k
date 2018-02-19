@@ -13,5 +13,5 @@ export default {
     REMOVE_FROM_FAVORITE: 12,
     FAV_CHECKING: 13,
     FINISH_FAV_CHEKING: 14,
-    ERROR: 15
+    ERROR: 15,
 }

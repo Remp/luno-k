@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Dialog from 'material-ui/Dialog';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
 import {connect} from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
 import {facebookAppID} from '../config';
@@ -23,7 +21,6 @@ class Auth extends Component{
         })
     }
     responseAuth(res, type){
-        this.handleClose();
         const user = {};
         switch(type){
             case 'facebook':
@@ -35,6 +32,7 @@ class Auth extends Component{
                 user.name = res.w3.ig
         }
         if (user.id){
+            this.handleClose();
             store.dispatch({
                 type: constants.AUTHORIZATION,
                 user: user
@@ -50,7 +48,7 @@ class Auth extends Component{
         
     }
     render(){
-        const icon = <i className="fab fa-facebook" />     
+        const icon = <i className="fab fa-facebook" />   
         return ( 
             <Dialog
                 modal={false}
