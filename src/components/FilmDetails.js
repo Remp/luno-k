@@ -9,11 +9,13 @@ import EmptyPoster from './EmptyPoster';
 import Error from './Error';
 import Loading from './Loading';
 import $ from 'jquery';
+import purerendermixin from 'pure-render-mixin';
 
 class FilmDetails extends Component{
     constructor(){
         super();
         this.onResize = this.onResize.bind(this);
+        this.mixins = [purerendermixin];
     }
     static contextTypes = {
         router: PropTypes.func.isRequired

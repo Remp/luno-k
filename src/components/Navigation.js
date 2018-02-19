@@ -6,10 +6,12 @@ import PropTypes from 'prop-types';
 import store from '../redux/store';
 import constants from '../redux/constants';
 import {connect} from 'react-redux';
+import purerendermixin from 'pure-render-mixin';
 
 class Navigation extends Component{
     constructor(){
         super();
+        this.mixins = [purerendermixin]
         this.toggleHandler = this.toggleHandler.bind(this);
     }
     static contextTypes = {

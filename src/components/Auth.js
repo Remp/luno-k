@@ -9,9 +9,14 @@ import {googleAppID} from '../config';
 import store from '../redux/store';
 import constants from '../redux/constants';
 import {GoogleLogin} from 'react-google-login';
-import '../styles/Auth.css'
+import '../styles/Auth.css';
+import purerendermixin from 'pure-render-mixin';
 
 class Auth extends Component{
+    constructor(){
+        super();
+        this.mixins = [purerendermixin];
+    }
     handleClose(){
         this.props.dispatch({
             type: constants.TOGGLE_AUTH_DIALOG

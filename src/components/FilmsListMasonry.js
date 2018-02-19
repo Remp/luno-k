@@ -9,11 +9,13 @@ import {getMostRatedFilms} from '../tmdbApi';
 import Error from './Error';
 import $ from 'jquery';
 import Loading from './Loading';
+import purerendermixin from 'pure-render-mixin';
 
 class FilmsList extends Component{
     constructor(){
         super();
-        this.onResize = this.onResize.bind(this)
+        this.mixins = [purerendermixin];
+        this.onResize = this.onResize.bind(this);
     }
     onFilmClickHandler(id){
         this.props.history.push(`/film=${id}`);
@@ -22,7 +24,8 @@ class FilmsList extends Component{
         return (
             <div 
                 className="own-item"  
-                onClick={() => this.onFilmClickHandler(id)}                                     
+                onClick={() => this.onFilmClickHandler(id)}  
+                key={id}                                   
             >
                 <FilmCard 
                     posterImg={poster} 

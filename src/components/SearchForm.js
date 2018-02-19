@@ -3,8 +3,13 @@ import '../styles/SearchForm.css';
 import {connect} from 'react-redux';
 import store from '../redux/store';
 import constants from '../redux/constants';
+import purerendermixin from 'pure-render-mixin';
 
 class SearchForm extends Component{
+    constructor(){
+        super();
+        this.mixins = [purerendermixin];
+    }
     onChangeHandler(e){
         store.dispatch({
             type: constants.CHANGE_SEARCH_STRING,
