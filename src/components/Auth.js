@@ -19,7 +19,7 @@ class Auth extends Component{
     }
     handleClose(){
         this.props.dispatch({
-            type: constants.TOGGLE_AUTH_DIALOG
+            type: constants.CLOSE_AUTH_DIALOG
         })
     }
     responseAuth(res, type){

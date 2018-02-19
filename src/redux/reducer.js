@@ -24,8 +24,10 @@ export default (state = def, action) => {
             return switchVideoLoading(state)
         case constants.FINISH_VIDEO_REQUEST:
             return resetError(finishVideoLoading(switchVideoLoading(state), action.trailer))
-        case constants.TOGGLE_AUTH_DIALOG:
-            return state.update('isAuthOpen', l => !l);
+        case constants.OPEN_AUTH_DIALOG:
+            return state.set('isAuthOpen', true);
+        case constants.CLOSE_AUTH_DIALOG:
+            return state.set('isAuthOpen', false);
         case constants.AUTHORIZATION:
             return resetError(state.set('user', fromJS(action.user)))
         case constants.SIGN_OUT:
